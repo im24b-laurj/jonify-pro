@@ -176,6 +176,9 @@ document.getElementById('playlists').innerHTML = html_playlist
             document.getElementById('play-btn').innerText = `⏸`
 
 
+
+
+
         } else {
             audio.pause()
             document.getElementById('play-btn').innerText = `▶`
