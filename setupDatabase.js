@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function setupDatabase() {
+export async function setupDatabase() {
     await pool.execute('DROP TABLE IF EXISTS playlist_songs;');
     await pool.execute('DROP TABLE IF EXISTS songs;');
     await pool.execute('DROP TABLE IF EXISTS playlists;')

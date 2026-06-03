@@ -12,7 +12,11 @@ import playlistRouter from './routes/playlists.js'
 import { fileURLToPath } from 'url';
 import pool from './database.js';
 import {scanMusic} from './scanMusic.js'
+import { setupDatabase } from './setupDatabase.js';
+await setupDatabase();
 await scanMusic();
+await scanMusic();
+
 
 
 
