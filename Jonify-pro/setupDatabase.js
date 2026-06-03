@@ -10,6 +10,13 @@ const __dirname = path.dirname(__filename);
 async function setupDatabase() {
     await pool.execute('DROP TABLE IF EXISTS playlist_songs;');
     await pool.execute('DROP TABLE IF EXISTS songs;');
+    await pool.execute('DROP TABLE IF EXISTS playlists;')
+
+
+
+
+
+
 
     await pool.execute(`
         CREATE TABLE IF NOT EXISTS songs (
@@ -23,7 +30,7 @@ async function setupDatabase() {
     await pool.execute(`
         CREATE TABLE IF NOT EXISTS playlists (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
+            name VARCHAR(255) NOT NULL UNIQUE,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     `);
@@ -31,6 +38,7 @@ async function setupDatabase() {
         CREATE TABLE IF NOT EXISTS playlist_songs (
             playlist_id INT,
             song_id INT,
+            time_added TIMESTAMP,
             PRIMARY KEY (playlist_id, song_id),
             FOREIGN KEY (playlist_id) REFERENCES playlists(id) ON DELETE CASCADE,
             FOREIGN KEY (song_id) REFERENCES songs(id) ON DELETE CASCADE

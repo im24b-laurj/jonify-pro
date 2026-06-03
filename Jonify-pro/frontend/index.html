@@ -1,29 +1,93 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="module" src="mainPage.js"></script>
+    <title>Jonify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="mainPage.js"></script>
 </head>
 <body>
-<header>
-    <nav>
-    </nav>
-</header>
 
-<main>
-    <section class="sidebar">
-        <div id="playlists">Test</div>
-    </section>
-    <section class="player-bar">
-    </section>
-    <section class="main-content">
-        <div id="maincontih">Test</div>
-    </section>
+<aside class="sidebar">
+    <div class="sidebar-header">
+        Your Library
+        <button id="add-playlist-btn" class="add-playlist-btn" onclick="openPlaylistModal()">+</button>
+    </div>
+    <div id="playlists"></div>
+</aside>
 
 
+<div id="playlist-modal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+        <h2>Create Playlist</h2>
+        <input id="playlist-name-input" type="text" placeholder="Playlist name" />
+        <div class="modal-buttons">
+            <button onclick="closePlaylistModal()">Cancel</button>
+            <button onclick="createPlaylist()">Create</button>
+        </div>
+    </div>
+</div>
+
+<main class="main-content">
+    <div id="maincontih">
+        <h1 id="playlist-title" class="playlist-title"></h1>
+        <table class="songs-table">
+            <thead>
+                <tr>
+                    <th style="width: 40px">#</th>
+                    <th>Title</th>
+                    <th>Album</th>
+                    <th>Date added</th>
+                    <th></th>
+                    <th style="text-align: right">⏱</th>
+                    <td><button class="add-to-playlist-btn" onclick="openAddToPlaylistModal(${i.id})">+</button></td>
+                </tr>
+            </thead>
+            <tbody id="songs-body"></tbody>
+        </table>
+    </div>
+    <div id="add-to-playlist-modal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <h2>Add to playlist</h2>
+            <div id="playlist-choices"></div>
+            <div class="modal-buttons">
+                <button onclick="closeAddToPlaylistModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
 </main>
+
+<footer class="player-bar">
+
+    <div class="player-left">
+        <img id="player-cover" src="" alt="cover" class="player-cover" />
+        <div class="player-song-info">
+            <span id="player-title" class="player-title">No song playing</span>
+            <span id="player-artist" class="player-artist"></span>
+        </div>
+    </div>
+
+
+    <div class="player-center">
+        <button id="play-btn" class="play-btn" onclick="play_button()">⏸</button>
+        <div class="progress-bar-wrapper">
+            <span id="current-time" class="time">0:00</span>
+            <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" step="1" />
+            <span id="total-time" class="time">0:00</span>
+        </div>
+    </div>
+
+    <div class="player-right">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volume-bar" class="volume-bar" value="100" min="0" max="100" />
+    </div>
+
+    <audio id="audio-player"></audio>
+
+
+</footer>
 
 </body>
 </html>

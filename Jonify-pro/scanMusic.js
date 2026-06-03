@@ -37,14 +37,22 @@ async function scanMusic() {
 
             const duration =
                 metadata.format.duration || 0;
-            pool.query("INSERT IGNORE INTO songs(title, artist, album, duration, filepath) VALUES (?, ?, ?, ?, ?)", [title, artist, album, duration, filePath])
+
+            await pool.query("INSERT IGNORE INTO songs(title, artist, album, duration, filepath) VALUES (?, ?, ?, ?, ?)", [title, artist, album, duration, filePath])
 
             console.log(`Added: ${title}`);
+
 
         } catch (err) {
 
             console.log("Error reading file:", file);
         }
     }
-}
+
+await pool.query("INSERT IGNORE INTO playlists (name) VALUES ('AllSongs')")
+const [[allSongsPlaylist]] = await pool.query("SELECT id FROM playlists WHERE name = 'AllSongs'")
+const [songs] = await pool.query('SELECT * FROM songs')
+for (const i of songs) {
+    await pool.query("INSERT IGNORE INTO playlist_songs (playlist_id, song_id, time_added) VALUES (?, ?, NOW())", [allSongsPlaylist.id, i.id])
+}}
 
