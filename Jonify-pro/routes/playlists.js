@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
     });
 })
 
+
 router.get('/:id', async (req, res) => {
     const playlistId = req.params.id;
     const [rows] = await pool.query('SELECT * FROM playlists WHERE id = ?', [playlistId]);

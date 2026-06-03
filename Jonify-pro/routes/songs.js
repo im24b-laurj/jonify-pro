@@ -22,6 +22,7 @@ router.get('/cover/:id', async (req, res) => {
 
 
 
+
     if (!picture) return res.status(404).json({ success: false, message: 'No cover found' });
 
     res.set('Content-Type', picture.format);
