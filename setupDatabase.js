@@ -25,7 +25,7 @@ export async function setupDatabase() {
             artist VARCHAR(255),
             album VARCHAR(255),
             duration FLOAT,
-            filepath TEXT UNIQUE
+            filepath VARCHAR(500) UNIQUE
         ) `);
     await pool.execute(`
         CREATE TABLE IF NOT EXISTS playlists (
