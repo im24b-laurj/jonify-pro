@@ -54,7 +54,7 @@ window.closePlaylistModal = function() {
 
 window.createPlaylist = async function() {
     const name = document.getElementById('playlist-name-input').value
-    await fetch('http://localhost:3000/playlists', {
+    await fetch('/playlists', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({name: name})
@@ -78,7 +78,7 @@ window.closeAddToPlaylistModal = function() {
 }
 
 window.addSongToPlaylist = async function(playlistId, songId) {
-    await fetch('http://localhost:3000/playlists/song', {
+    await fetch('/playlists/song', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({playlistId: playlistId, songId: songId})
@@ -113,7 +113,7 @@ window.showPlaylistSongs = async function(id) {
             <td class="song-number">${index}</td>
             <td onclick="playSong(${i.id}, '${i.title}', '${i.artist}')">
                 <div class="song-title-cell">
-                    <img src="http://localhost:3000/api/songs/cover/${i.id}" />
+                    <img src="/api/songs/cover/${i.id}" />
                     <div>
                         <div class="song-title">${i.title}.</div>
                         <div class="song-artist">${i.artist}j</div>
@@ -149,21 +149,21 @@ document.getElementById('playlists').innerHTML = html_playlist
 
 
     async function getPlaylists() {
-        const playlists_ = await fetch('http://localhost:3000/playlists')
+        const playlists_ = await fetch('/playlists')
         return await playlists_.json();
     }
 
     async function getSongsOfPlaylist(playlistId) {
-        const songs = await fetch(`http://localhost:3000/playlists/${playlistId}/songs`)
+        const songs = await fetch(`/playlists/${playlistId}/songs`)
         return await songs.json();
 
     }
 
     window.playSong = async function(id, title, artist) {
         const audio = document.getElementById('audio-player')
-        audio.src = `http://localhost:3000/stream/${id}`
+        audio.src = `/stream/${id}`
 
-        document.getElementById('player-cover').src = `http://localhost:3000/api/songs/cover/${id}`
+        document.getElementById('player-cover').src = `/api/songs/cover/${id}`
         document.getElementById('player-title').innerHTML = `<span id="player-title" class="player-title">${title}</span>`
         document.getElementById('player-artist').innerHTML = `<span id="player-artist" class="player-artist">${artist}</span>`
         audio.play()

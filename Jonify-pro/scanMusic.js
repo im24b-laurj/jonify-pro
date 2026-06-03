@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 export { scanMusic}
-const musicFolder = path.join("../Jonify-pro/music");
+const musicFolder = process.env.MUSIC_FOLDER || path.join(__dirname, "music");
 
 async function scanMusic() {
 
